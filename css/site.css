@@ -8,6 +8,7 @@
 }
 .item {margin-right: 0; margin-left: 0; border-bottom: 1px solid silver; padding: 10px 0; display: block;}
 #list {max-height: 85vh; overflow-y: auto;}
+.version {position: fixed; top: 5px; right: 5px;font-size: 7pt;}
 /*Mobile*/
 @media only screen and (max-width: 767px) {
     #player {height: 200px; border-bottom: 1px solid silver; padding-bottom: 15px;}
