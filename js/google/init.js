@@ -1,34 +1,4 @@
 Site = {
-  data: null,
-  template: null,
-  init: function () {
-    this.bindEvents();
-    this.loadData();
-  },
-
-  loadData: function () {
-    Ajax.getJson('data.json', null, $.proxy(function (data) {
-      this.data = data;
-      this.template = doT.template(Templates.get('list.html'));
-      this.shuffleArray(this.data);
-      $('#list').html(this.template({items: this.data}));
-      this.loadVideo(this.data[0].snippet.resourceId.videoId);
-    }, this), false, true);
-  },
-
-  bindEvents: function () {
-    $(document).on('click', '#list > a', $.proxy(function (e) {
-      let id = $(e.currentTarget).data('id');
-      this.loadVideo(id);
-      jQuery('html, body').animate({scrollTop:0},0);
-      return false;
-    }, this));
-  },
-
-  loadVideo: function (videoId) {
-    $('#player').attr('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&showinfo=0&playsinline=1&disablekb=1&modestbranding=1`);
-  },
-
   shuffleArray: function (array) {
     for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
@@ -36,10 +6,47 @@ Site = {
       array[i] = array[j];
       array[j] = temp;
     }
+  },
+
+  controller: function($scope, $sce, service) {
+    $scope.items = [];
+    $scope.onStageUrl = null;
+
+    $scope.setOnStageUrl = function (videoId) {
+      $scope.onStageUrl = $sce.trustAsResourceUrl(`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&showinfo=0&playsinline=1&disablekb=1&modestbranding=1`);
+      return false;
+    };
+
+    service.fetchData()
+      .then(function () {
+        $scope.items = service.data.items;
+        Site.shuffleArray($scope.items);
+        $scope.setOnStageUrl($scope.items[0].snippet.resourceId.videoId);
+      });
+  },
+
+  service: function ($http) {
+    let service = {};
+
+    service.data = {
+      items: null
+    };
+
+    service.fetchData = function () {
+      return $http({
+        cache: true,
+        method: 'GET',
+        url: 'data.json'
+      }).then(function (response) {
+        service.data.items = response.data;
+      });
+    };
+
+    return service;
   }
 };
 
-function init() {
+function fetchFromYoutube() {
   const playlistId = (location.hash) ? location.hash.replace('#', '') : 'PL5LU_Jq_F0d3LrQzHEGD37X6a1IHe87EH';
   const request = gapi.client.youtube.playlistItems.list({
     'maxResults': '50',
@@ -53,6 +60,6 @@ function init() {
   return false;
 }
 
-$(document).ready(function () {
-  Site.init();
-});
+let app = angular.module('main', [])
+  .controller('Home', Site.controller)
+  .factory('service', ['$http', Site.service]);

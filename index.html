@@ -9,13 +9,13 @@
     <title>KidSafe - YouTube</title>
     <link rel="stylesheet" href="ampersand/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/site.css">
-    <link rel="stylesheet" href="mobile-angular-ui/css/mobile-angular-ui-hover.min.css" />
-    <link rel="stylesheet" href="mobile-angular-ui/css/mobile-angular-ui-base.min.css" />
-    <link rel="stylesheet" href="mobile-angular-ui/css/mobile-angular-ui-desktop.min.css" />
+    <!--<link rel="stylesheet" href="mobile-angular-ui/css/mobile-angular-ui-hover.min.css" />-->
+    <!--<link rel="stylesheet" href="mobile-angular-ui/css/mobile-angular-ui-base.min.css" />-->
+    <!--<link rel="stylesheet" href="mobile-angular-ui/css/mobile-angular-ui-desktop.min.css" />-->
 </head>
-<body>
+<body ng-app="main">
 <div class="version">v1.0</div>
-<div class="container" style="margin-top: 15px;">
+<div class="container" style="margin-top: 15px;" ng-controller="Home">
     <div class="row">
         <div class="col-xs-12">
             <h2 style="text-align: center; margin-top: 0;"><img src="youtube.png" style="height: 50px;" /></h2>
@@ -25,11 +25,20 @@
             <div id="main-container" class="container-fluid" style="padding-top: 10px;">
                 <div class="row">
                     <div class="col-sm-8 col-md-9 col-lg-10 col-xs-12" style="margin-right: 0; padding-right: 0;">
-                        <iframe id="player" style="width: 95%;" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+                        <iframe id="player" style="width: 95%;" frameborder="0" ng-src="{{ onStageUrl }}"
+                                allow="autoplay; encrypted-media"></iframe>
                     </div>
                     <div class="col-sm-4 col-md-3 col-lg-2 col-xs-12" style="padding-left: 0;">
                         <div class="container-fluid" id="list">
-
+                            <a class="item row" data-id="{{ item.snippet.resourceId.videoId }}"
+                               ng-repeat="item in items" href="#" ng-click="setOnStageUrl(item.snippet.resourceId.videoId)">
+                                <div class="col-xs-5 col-sm-12 col-md-12 col-lg-12">
+                                    <img src="{{ item.snippet.thumbnails.medium.url }}" style="width: 100%;" />
+                                </div>
+                                <div class="col-xs-7 col-sm-12 col-md-12 col-lg-12 title">
+                                    {{ item.snippet.title }}
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -43,8 +52,8 @@
 <script src="ampersand/js/ampersand.min.js"></script>
 <script src="angular/angular.min.js"></script>
 <script src="angular/angular-route.min.js"></script>
-<script src="mobile-angular-ui/js/mobile-angular-ui.min.js"></script>
-<script src="mobile-angular-ui/js/mobile-angular-ui.gestures.min.js"></script>
+<!--<script src="mobile-angular-ui/js/mobile-angular-ui.min.js"></script>-->
+<!--<script src="mobile-angular-ui/js/mobile-angular-ui.gestures.min.js"></script>-->
 <!--<script type="text/javascript" src="js/google/auth.js"></script>-->
 <!--<script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>-->
 <script src="js/doT.min.js" type="text/javascript"></script>
