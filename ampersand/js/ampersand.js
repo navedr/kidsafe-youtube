@@ -1,27 +1,3 @@
-var thisScript = (function () {
-    var ScriptID = "ScriptID" + Math.round(100000 * Math.random());
-    document.write("<script id='" + ScriptID + "'></script>");
-    var path = document.getElementById(ScriptID).previousSibling.getAttribute("src");
-    var element = document.getElementById(ScriptID);
-    element.parentNode.removeChild(element);
-    return path;
-})()
-var split = thisScript.split('/');
-var ampersandPath = thisScript.replace('js/' + split[split.length - 1], '');
-if (typeof loadScripts != 'undefined') {
-    if (loadScripts) {
-        $.getScript(ampersandPath + "js/ampersand.libs.js", loadPageScripts);
-    }
-}
-
-function loadPageScripts() {
-    if (typeof ampersandPageScripts != 'undefined') {
-        for (var x in ampersandPageScripts) {
-            loadjscssfile(ampersandPageScripts[x], 'js');
-        }
-    }
-}
-
 //Ajax helpers
 var Ajax = {
 

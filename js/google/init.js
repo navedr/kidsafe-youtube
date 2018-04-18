@@ -26,7 +26,7 @@ Site = {
   },
 
   loadVideo: function (videoId) {
-    $('#player').attr('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&controls=0&showinfo=0&playsinline=1`);
+    $('#player').attr('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&showinfo=0&playsinline=1&disablekb=1&modestbranding=1`);
   },
 
   shuffleArray: function (array) {
