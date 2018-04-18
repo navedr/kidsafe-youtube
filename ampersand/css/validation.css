@@ -1,0 +1,14 @@
+﻿/* Validation types - Include validate class and then include the validation type */
+.validate, .validate-required, .validate-number, .validate-money, .validate-email, .validate-digits, .validate-compare, .validate-positive-number, .validate-minlength, .validate-maxlength{}
+
+.error-background
+{
+    background-color: #F8DBDD !important;
+    border: 1px solid #E17984 !important;
+}
+div.error-message
+{
+    font-size:7pt;
+    color:Red;
+    display:block;
+}

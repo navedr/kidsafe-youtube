@@ -1,0 +1,11 @@
+{{~it.items :item:index}}
+    {{ var video = item.snippet; }}
+    <a class="item row" data-id="{{=video.resourceId.videoId}}" href="#">
+        <div class="col-xs-5 col-sm-12">
+            <img src="{{=video.thumbnails.medium.url}}" style="width: 100%;" />
+        </div>
+        <div class="col-xs-7 col-sm-12 title">
+            {{=video.title}}
+        </div>
+    </a>
+{{~}}

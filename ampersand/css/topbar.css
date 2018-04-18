@@ -1,0 +1,25 @@
+.top-bar {
+	position: fixed;
+	width: 100%;
+	z-index: 1000;
+}
+
+.top-bar .top-bar-content {
+	border-bottom: 1px solid gray;
+}
+
+.top-bar .top-bar-footer {
+	float: right;
+	margin-right: 20px;
+	border-right: 1px solid gray;
+	border-left: 1px solid gray;
+	border-bottom: 1px solid gray;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	padding: 0px 5px;
+	background-color: white;
+}
+
+.top-bar .top-bar-footer a:hover {
+	text-decoration: none;
+}

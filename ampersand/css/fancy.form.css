@@ -1,0 +1,49 @@
+input[type='text'].fancy-form , input[type='password'].fancy-form 
+{
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1) inset;
+    width: 180px;
+}
+select.fancy-form 
+{
+    width: 180px;
+    border: 1px solid #DDD;
+    padding: 5px;
+    border-radius: 3px;   
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1) inset;
+}
+ 
+input[type='checkbox'].fancy-form {
+    display: none;
+}
+ 
+input[type='checkbox'].fancy-form + label {
+    background-color: #fafafa;
+    border: 1px solid #cacece;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    padding: 5.5px;
+    border-radius: 3px;
+    display: inline-block;
+    position: relative;
+}
+ 
+input[type='checkbox'].fancy-form + label:active, input[type='checkbox'].fancy-form:checked + label:active {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+ 
+input[type='checkbox'].fancy-form:checked + label {
+    background-color: #e9ecee;
+    border: 1px solid #adb8c0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+    color: #99a1a7;
+}
+ 
+input[type='checkbox'].fancy-form:checked + label:after {
+    content: '\2714';
+    font-size: 8px;
+    position: absolute;
+    top: 0;
+    left: 2.5px;
+    /* color: #99a1a7; */
+    color:Black;
+}

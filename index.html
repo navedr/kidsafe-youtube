@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>YouTube - For Sarah</title>
+    <link rel="stylesheet" href="ampersand/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<div class="container" style="margin-top: 15px;">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 style="text-align: center; margin-top: 0;"><img src="youtube.png" style="height: 50px;" /></h2>
+            <h4 style="text-align: center; color: firebrick;">for my darling Sarah</h4>
+            <div class="alert alert-danger pre-auth" style="text-align: center; display: none;">
+                You need to be signed in into YouTube to use this service!!<br>
+                <button class="btn btn-info" id="login-link" type="button">Login Now</button>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div id="main-container" class="container-fluid" style="padding-top: 10px;">
+                <div class="row">
+                    <div class="col-sm-8 col-md-9 col-lg-10 col-xs-12" style="margin-right: 0; padding-right: 0;">
+                        <iframe id="player" style="width: 95%;" frameborder="0"
+                                allow="autoplay; encrypted-media"></iframe>
+                    </div>
+                    <div class="col-sm-4 col-md-3 col-lg-2 col-xs-12" style="padding-left: 0;">
+                        <div class="container-fluid" id="list">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="ampersand/jquery/jquery-1.10.2.min.js"></script>
+<script src="ampersand/bootstrap/js/bootstrap.min.js"></script>
+<script src="ampersand/js/ampersand.min.js"></script>
+<!--<script type="text/javascript" src="js/google/auth.js"></script>-->
+<script type="text/javascript" src="js/google/init.js"></script>
+<!--<script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>-->
+<script src="js/doT.min.js" type="text/javascript"></script>
+</body>
+</html>
