@@ -13,7 +13,7 @@ Site = {
     $scope.items = [];
     $scope.onStageUrl = null;
     $scope.dataVersion = '0.0';
-
+    Loader.showLoadingBox();
     $scope.setOnStageUrl = function (videoId) {
       $scope.onStageUrl = $sce.trustAsResourceUrl(`https://www.youtube.com/embed/${videoId}?autoplay=1&amp;rel=0&amp;showinfo=0&amp;playsinline=1&amp;disablekb=1&amp;modestbranding=1`);
       return false;
@@ -26,6 +26,7 @@ Site = {
     }).then(function (response) {
       $scope.items = Site.shuffleArray(response.data.items);
       $scope.dataVersion = response.data.version;
+      Loader.hideLoadingBox();
       $scope.setOnStageUrl($scope.items[0].snippet.resourceId.videoId);
     });
   }
