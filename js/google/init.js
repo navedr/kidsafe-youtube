@@ -30,7 +30,6 @@ Site = {
 
         player = new YT.Player('player', {
           playerVars: {
-            controls: 1,
             playsinline: 1,
             origin: 'https://navedr.github.io',
           },
@@ -43,7 +42,7 @@ Site = {
       });
     }
 
-    $scope.setOnStageUrl = function (videoId) {
+    $scope.loadVideo = function (videoId) {
       player.loadVideoById(videoId);
       return false;
     };
