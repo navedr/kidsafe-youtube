@@ -9,26 +9,49 @@ Site = {
     return array;
   },
 
-  controller: function($scope, $sce, $http) {
+  controller: function($scope, $window, $sce, $http) {
     $scope.items = [];
     $scope.onStageUrl = null;
     $scope.dataVersion = '0.0';
-    Loader.showLoadingBox();
+    let player;
+
+    function init () {
+      Loader.showLoadingBox();
+
+      $http({
+        cache: true,
+        method: 'GET',
+        url: 'data.json'
+      }).then(function (response) {
+        $scope.items = Site.shuffleArray(response.data.items);
+        $scope.dataVersion = response.data.version;
+
+        Loader.hideLoadingBox();
+
+        player = new YT.Player('player', {
+          videoId: $scope.items[0].snippet.resourceId.videoId,
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      });
+    }
+
     $scope.setOnStageUrl = function (videoId) {
-      $scope.onStageUrl = $sce.trustAsResourceUrl(`https://www.youtube.com/embed/${videoId}?autoplay=1&amp;rel=0&amp;showinfo=0&amp;playsinline=1&amp;disablekb=1&amp;modestbranding=1`);
+      player.loadVideoById(videoId);
       return false;
     };
 
-    $http({
-      cache: true,
-      method: 'GET',
-      url: 'data.json'
-    }).then(function (response) {
-      $scope.items = Site.shuffleArray(response.data.items);
-      $scope.dataVersion = response.data.version;
-      Loader.hideLoadingBox();
-      $scope.setOnStageUrl($scope.items[0].snippet.resourceId.videoId);
-    });
+    function onPlayerReady(event) {
+      event.target.playVideo();
+    }
+
+    function onPlayerStateChange(event) {
+
+    }
+
+    $window.onYouTubeIframeAPIReady = init;
   }
 };
 

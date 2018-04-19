@@ -1,4 +1,4 @@
-#player {height: 400px;}
+#player {height: 400px; max-width: 95%;}
 .title {
     white-space: nowrap;
     overflow: hidden;
