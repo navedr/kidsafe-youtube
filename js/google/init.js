@@ -1,48 +1,33 @@
 Site = {
   shuffleArray: function (array) {
-    for (let i = array.length - 1; i > 0; i--) {
+    array.forEach(function (element, i) {
       let j = Math.floor(Math.random() * (i + 1));
       let temp = array[i];
       array[i] = array[j];
       array[j] = temp;
-    }
+    });
+    return array;
   },
 
-  controller: function($scope, $sce, service) {
+  controller: function($scope, $sce, $http) {
     $scope.items = [];
     $scope.onStageUrl = null;
+    $scope.dataVersion = '0.0';
 
     $scope.setOnStageUrl = function (videoId) {
-      $scope.onStageUrl = $sce.trustAsResourceUrl(`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&showinfo=0&playsinline=1&disablekb=1&modestbranding=1`);
+      $scope.onStageUrl = $sce.trustAsResourceUrl(`https://www.youtube.com/embed/${videoId}?autoplay=1&amp;rel=0&amp;showinfo=0&amp;playsinline=1&amp;disablekb=1&amp;modestbranding=1`);
       return false;
     };
 
-    service.fetchData()
-      .then(function () {
-        $scope.items = service.data.items;
-        Site.shuffleArray($scope.items);
-        $scope.setOnStageUrl($scope.items[0].snippet.resourceId.videoId);
-      });
-  },
-
-  service: function ($http) {
-    let service = {};
-
-    service.data = {
-      items: null
-    };
-
-    service.fetchData = function () {
-      return $http({
-        cache: true,
-        method: 'GET',
-        url: 'data.json'
-      }).then(function (response) {
-        service.data.items = response.data;
-      });
-    };
-
-    return service;
+    $http({
+      cache: true,
+      method: 'GET',
+      url: 'data.json'
+    }).then(function (response) {
+      $scope.items = Site.shuffleArray(response.data.items);
+      $scope.dataVersion = response.data.version;
+      $scope.setOnStageUrl($scope.items[0].snippet.resourceId.videoId);
+    });
   }
 };
 
@@ -61,5 +46,4 @@ function fetchFromYoutube() {
 }
 
 let app = angular.module('main', [])
-  .controller('Home', Site.controller)
-  .factory('service', ['$http', Site.service]);
+  .controller('Home', Site.controller);
