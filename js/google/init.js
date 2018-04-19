@@ -29,6 +29,11 @@ Site = {
         Loader.hideLoadingBox();
 
         player = new YT.Player('player', {
+          playerVars: {
+            controls: 1,
+            playsinline: 1,
+            origin: 'https://navedr.github.io',
+          },
           videoId: $scope.items[0].snippet.resourceId.videoId,
           events: {
             'onReady': onPlayerReady,
