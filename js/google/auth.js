@@ -43,7 +43,7 @@ function loadAPIClientInterfaces() {
 }
 
 function handleAPILoaded() {
-	const playlistId = (location.hash) ? location.hash.replace('#', '') : 'PL5LU_Jq_F0d3LrQzHEGD37X6a1IHe87EH';
+	const playlistId = (location.hash) ? location.hash.replace('#', '') : 'PL_GapQKen-vGZgv0IITrMaOFBNHC5QEaK';
 	const request = gapi.client.youtube.playlistItems.list({
 		'maxResults': '50',
 		'part': 'snippet,contentDetails',
@@ -51,16 +51,19 @@ function handleAPILoaded() {
 	});
 
 	request.execute(function (response) {
+		window.ytResponse = response;
+		const items = response.items.filter(item => !!item.snippet.thumbnails).map(item => {
+			return {
+				videoId: item.snippet.resourceId.videoId,
+				thumbnailUrl: item.snippet.thumbnails.medium.url,
+				title: item.snippet.title
+			}
+		});
 		const json = {
 			version: "1.0",
 			updated: new Date().toDateString(),
-			items: response.items.filter(item => !!item.snippet.thumbnails).map(item => {
-				return {
-					videoId: item.snippet.resourceId.videoId,
-					thumbnailUrl: item.snippet.thumbnails.medium.url,
-					title: item.snippet.title
-				}
-			})
+			count: items.length,
+			items: items
 		};
 		$("#json").val(JSON.stringify(json, null, 2));
 	});
