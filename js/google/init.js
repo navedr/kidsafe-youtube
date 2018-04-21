@@ -27,7 +27,7 @@ Site = {
         $scope.dataVersion = response.data.version;
 
         Loader.hideLoadingBox();
-        $scope.onStageId = $scope.items[0].snippet.resourceId.videoId;
+        $scope.onStageId = $scope.items[0].videoId;
         player = new YT.Player('player', {
           playerVars: {
             playsinline: 1,
@@ -66,19 +66,5 @@ Site = {
   }
 };
 
-function fetchFromYoutube() {
-  const playlistId = (location.hash) ? location.hash.replace('#', '') : 'PL5LU_Jq_F0d3LrQzHEGD37X6a1IHe87EH';
-  const request = gapi.client.youtube.playlistItems.list({
-    'maxResults': '50',
-    'part': 'snippet,contentDetails',
-    'playlistId': playlistId
-  });
-
-  request.execute(function (response) {
-    response.items = response.items.filter(item => !!item.snippet.thumbnails);
-  });
-  return false;
-}
-
 let app = angular.module('main', [])
-  .controller('Home', Site.controller);
+  .controller('Home', ['$scope', '$window', '$sce', '$http', Site.controller]);

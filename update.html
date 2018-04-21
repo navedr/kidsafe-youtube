@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Data</title>
+    <link rel="stylesheet" href="ampersand/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container well">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="alert alert-danger pre-auth" style="text-align: center; display: none;">
+                You need to be signed in into YouTube to use this service!!<br>
+                <button class="btn btn-info" id="login-link" type="button">Login Now</button>
+            </div>
+            <div class="post-auth" style="display: none;">
+                <label>JSON</label>
+                <textarea style="width: 100%; height: 90vh;" id="json"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="ampersand/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="js/google/auth.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+</body>
+</html>
