@@ -11,7 +11,7 @@ Site = {
 
   controller: function($scope, $window, $sce, $http) {
     $scope.items = [];
-    $scope.onStageUrl = null;
+    $scope.onStageId = null;
     $scope.dataVersion = '0.0';
     let player;
 
@@ -27,13 +27,17 @@ Site = {
         $scope.dataVersion = response.data.version;
 
         Loader.hideLoadingBox();
-
+        $scope.onStageId = $scope.items[0].snippet.resourceId.videoId;
         player = new YT.Player('player', {
           playerVars: {
             playsinline: 1,
+            controls: 0,
+						disablekb: 1,
+						modestbranding: 1,
+						rel: 0,
             origin: 'https://navedr.github.io',
           },
-          videoId: $scope.items[0].snippet.resourceId.videoId,
+          videoId: $scope.onStageId,
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -43,7 +47,10 @@ Site = {
     }
 
     $scope.loadVideo = function (videoId) {
-      player.loadVideoById(videoId);
+      if ($scope.onStageId !== videoId) {
+				$scope.onStageId = videoId;
+				player.loadVideoById(videoId);
+      }
       return false;
     };
 
