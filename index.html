@@ -15,7 +15,7 @@
 </head>
 <body ng-app="main">
 <div class="container" style="margin-top: 15px;" ng-controller="Home">
-    <div class="version">App: v1.7, Data: v<span ng-bind="dataVersion"></span></div>
+    <div class="version">App: v1.8, Data: v<span ng-bind="dataVersion"></span></div>
     <div class="row">
         <div class="col-xs-12">
             <h2 style="text-align: center; margin-top: 0;"><img src="youtube.png" style="height: 50px;" /></h2>
@@ -28,6 +28,9 @@
                         <div id="player"></div>
                     </div>
                     <div class="col-sm-4 col-md-3 col-lg-2 col-xs-12" style="padding-left: 0;">
+                        <div class="container-fluid">
+                            <input type="search" class="form-control" placeholder="Filter..." id="filter" ng-keyup="filterList($event)">
+                        </div>
                         <div class="container-fluid" id="list">
                             <a class="item row" data-id="{{ item.videoId }}"
                                ng-repeat="item in items" href="#" ng-click="loadVideo(item.videoId)">

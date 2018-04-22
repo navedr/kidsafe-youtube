@@ -10,7 +10,8 @@ Site = {
   },
 
   controller: function($scope, $window, $sce, $http) {
-    $scope.items = [];
+    let items = [];
+  	$scope.items = [];
     $scope.onStageId = null;
     $scope.dataVersion = '0.0';
     let player;
@@ -23,7 +24,8 @@ Site = {
         method: 'GET',
         url: 'data.json'
       }).then(function (response) {
-        $scope.items = Site.shuffleArray(response.data.items);
+      	items = response.data.items;
+        $scope.items = Site.shuffleArray(items);
         $scope.dataVersion = response.data.version;
 
         Loader.hideLoadingBox();
@@ -50,9 +52,14 @@ Site = {
       if ($scope.onStageId !== videoId) {
 				$scope.onStageId = videoId;
 				player.loadVideoById(videoId);
+				Site.shuffleArray($scope.items);
       }
       return false;
     };
+    
+    $scope.filterList = function ($event) {
+    	$scope.items = $event.currentTarget.value ? items.filter(i => i.title.toLowerCase().includes($event.currentTarget.value.toLowerCase())) : items;
+		};
 
     function onPlayerReady(event) {
       event.target.playVideo();
@@ -61,7 +68,7 @@ Site = {
     function onPlayerStateChange(event) {
 
     }
-
+		
     $window.onYouTubeIframeAPIReady = init;
   }
 };
