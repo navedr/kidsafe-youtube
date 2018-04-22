@@ -1,3 +1,4 @@
+const startSeconds = 10;
 Site = {
   shuffleArray: function (array) {
     array.forEach(function (element, i) {
@@ -40,6 +41,7 @@ Site = {
             origin: 'https://navedr.github.io',
           },
           videoId: $scope.onStageId,
+					startSeconds: startSeconds,
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -51,7 +53,7 @@ Site = {
     $scope.loadVideo = function (videoId) {
       if ($scope.onStageId !== videoId) {
 				$scope.onStageId = videoId;
-				player.loadVideoById(videoId);
+				player.loadVideoById({videoId: videoId, startSeconds: startSeconds});
 				Site.shuffleArray($scope.items);
       }
       return false;
