@@ -13,7 +13,12 @@ Site = {
   controller: function($scope, $window, $http, $location) {
     let items = [];
     let player;
+    let query = $location.search();
     let appInfo = $location.search();
+
+    if (query.DeviceID && query.Device) {
+      mixpanel.identify(`${query.Device}-${query.DeviceID}`);
+    }
 
     appInfo['AppVersion'] = $scope.appVersion;
     mixpanel.register(appInfo);
