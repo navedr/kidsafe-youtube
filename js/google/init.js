@@ -47,7 +47,7 @@ Site = {
       	items = response.data.items;
         $scope.items = Site.shuffleArray(items);
         $scope.dataVersion = response.data.version;
-				mixpanel.track('Received Video List', {count: $scope.items.length});
+				mixpanel.track('Received Video List', {Count: $scope.items.length});
         Loader.hideLoadingBox();
         $scope.onStageId = $scope.items[0].videoId;
         initPlayer();
@@ -56,7 +56,7 @@ Site = {
 
     $scope.loadVideo = function (item) {
       if ($scope.onStageId !== item.videoId) {
-				mixpanel.track("Video Selected", {title: item.title});
+				mixpanel.track("Video Selected", {Title: item.title, VideoId: item.videoId});
 				$scope.onStageId = item.videoId;
 				player.loadVideoById({videoId: item.videoId, startSeconds: startSeconds});
 				Site.shuffleArray($scope.items);
