@@ -10,12 +10,30 @@ Site = {
     return array;
   },
 
-  controller: function($scope, $window, $sce, $http) {
+  controller: function($scope, $window, $http) {
     let items = [];
   	$scope.items = [];
     $scope.onStageId = null;
     $scope.dataVersion = '0.0';
     let player;
+
+    function initPlayer() {
+      player = new YT.Player('player', {
+        playerVars: {
+          playsinline: 1,
+          controls: 0,
+          disablekb: 1,
+          modestbranding: 1,
+          rel: 0,
+          origin: 'https://navedr.github.io',
+        },
+        videoId: $scope.onStageId,
+        startSeconds: startSeconds,
+        events: {
+          'onReady': (event) => event.target.playVideo()
+        }
+      });
+    }
 
     function init () {
       Loader.showLoadingBox();
@@ -31,22 +49,7 @@ Site = {
 
         Loader.hideLoadingBox();
         $scope.onStageId = $scope.items[0].videoId;
-        player = new YT.Player('player', {
-          playerVars: {
-            playsinline: 1,
-            controls: 0,
-						disablekb: 1,
-						modestbranding: 1,
-						rel: 0,
-            origin: 'https://navedr.github.io',
-          },
-          videoId: $scope.onStageId,
-					startSeconds: startSeconds,
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
+        initPlayer();
       });
     }
 
@@ -59,21 +62,13 @@ Site = {
       return false;
     };
     
-    $scope.filterList = function ($event) {
-    	$scope.items = $event.currentTarget.value ? items.filter(i => i.title.toLowerCase().includes($event.currentTarget.value.toLowerCase())) : items;
+    $scope.filterList = function (e) {
+    	$scope.items = e.currentTarget.value ? items.filter(i => i.title.toLowerCase().includes(e.currentTarget.value.toLowerCase())) : items;
 		};
 
-    function onPlayerReady(event) {
-      event.target.playVideo();
-    }
-
-    function onPlayerStateChange(event) {
-
-    }
-		
     $window.onYouTubeIframeAPIReady = init;
   }
 };
 
 let app = angular.module('main', [])
-  .controller('Home', ['$scope', '$window', '$sce', '$http', Site.controller]);
+  .controller('Home', ['$scope', '$window', '$http', Site.controller]);

@@ -35,7 +35,7 @@
                             <a class="item row" data-id="{{ item.videoId }}"
                                ng-repeat="item in items" href="#" ng-click="loadVideo(item.videoId)">
                                 <div class="col-xs-5 col-sm-12 col-md-12 col-lg-12">
-                                    <img src="{{ item.thumbnailUrl }}" style="width: 100%;" />
+                                    <img ng-src="{{ item.thumbnailUrl }}" style="width: 100%;" />
                                 </div>
                                 <div class="col-xs-7 col-sm-12 col-md-12 col-lg-12 title">
                                     {{ item.title }}

@@ -1,11 +1,5 @@
 #player {height: 400px; max-width: 95%;}
-.title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-bottom: 10px;
-    color: black;
-}
+.title {white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-bottom: 10px;color: black;}
 .item {margin-right: 0; margin-left: 0; border-bottom: 1px solid silver; padding: 10px 0; display: block;}
 #list {max-height: 85vh; overflow-y: auto;-webkit-overflow-scrolling: touch; }
 .version {position: fixed; top: 5px; right: 5px;font-size: 7pt;}
