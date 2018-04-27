@@ -33,7 +33,7 @@
                         </div>
                         <div class="container-fluid" id="list">
                             <a class="item row" data-id="{{ item.videoId }}"
-                               ng-repeat="item in items" href="#" ng-click="loadVideo(item.videoId)">
+                               ng-repeat="item in items" href="#" ng-click="loadVideo(item)">
                                 <div class="col-xs-5 col-sm-12 col-md-12 col-lg-12">
                                     <img ng-src="{{ item.thumbnailUrl }}" style="width: 100%;" />
                                 </div>
@@ -60,6 +60,7 @@
 <script src="mobile-angular-ui/js/mobile-angular-ui.min.js"></script>
 <script src="mobile-angular-ui/js/mobile-angular-ui.gestures.min.js"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
+<script src="js/mixpanel.js"></script>
 <script type="text/javascript" src="js/google/init.js?v=2"></script>
 </body>
 </html>

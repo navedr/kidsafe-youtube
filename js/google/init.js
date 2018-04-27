@@ -36,6 +36,7 @@ Site = {
     }
 
     function init () {
+			mixpanel.track("App Loaded");
       Loader.showLoadingBox();
 
       $http({
@@ -46,17 +47,18 @@ Site = {
       	items = response.data.items;
         $scope.items = Site.shuffleArray(items);
         $scope.dataVersion = response.data.version;
-
+				mixpanel.track('Received Video List', {count: $scope.items.length});
         Loader.hideLoadingBox();
         $scope.onStageId = $scope.items[0].videoId;
         initPlayer();
       });
     }
 
-    $scope.loadVideo = function (videoId) {
-      if ($scope.onStageId !== videoId) {
-				$scope.onStageId = videoId;
-				player.loadVideoById({videoId: videoId, startSeconds: startSeconds});
+    $scope.loadVideo = function (item) {
+      if ($scope.onStageId !== item.videoId) {
+				mixpanel.track("Video Selected", {title: item.title});
+				$scope.onStageId = item.videoId;
+				player.loadVideoById({videoId: item.videoId, startSeconds: startSeconds});
 				Site.shuffleArray($scope.items);
       }
       return false;
