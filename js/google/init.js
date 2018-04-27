@@ -20,7 +20,7 @@ Site = {
       mixpanel.identify(`${query.Device}-${query.DeviceID}`);
     }
 
-    appInfo['AppVersion'] = $scope.appVersion;
+    appInfo['App Version'] = $scope.appVersion;
     mixpanel.register(appInfo);
 
   	$scope.items = [];
@@ -60,7 +60,7 @@ Site = {
         $scope.items = Site.shuffleArray(items);
         $scope.dataVersion = response.data.version;
 				mixpanel.register_once({
-					"DataVersion": $scope.dataVersion
+					"Data Version": $scope.dataVersion
 				});
 				mixpanel.track('Received Video List', {Count: $scope.items.length});
         Loader.hideLoadingBox();
