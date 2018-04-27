@@ -26,7 +26,7 @@ Site = {
   	$scope.items = [];
     $scope.onStageId = null;
     $scope.dataVersion = '0.0';
-    $scope.appVersion = '1.91';
+    $scope.appVersion = '1.0b10';
 
     function initPlayer() {
       player = new YT.Player('player', {
