@@ -10,17 +10,18 @@ Site = {
     return array;
   },
 
-  controller: function($scope, $window, $http) {
+  controller: function($scope, $window, $http, $location) {
     let items = [];
+    let player;
+    let appInfo = $location.search();
+
+    appInfo['AppVersion'] = $scope.appVersion;
+    mixpanel.register(appInfo);
+
   	$scope.items = [];
     $scope.onStageId = null;
     $scope.dataVersion = '0.0';
     $scope.appVersion = '1.91';
-    let player;
-
-    mixpanel.register({
-			"AppVersion": $scope.appVersion
-		});
 
     function initPlayer() {
       player = new YT.Player('player', {
@@ -82,4 +83,4 @@ Site = {
 };
 
 let app = angular.module('main', [])
-  .controller('Home', ['$scope', '$window', '$http', Site.controller]);
+  .controller('Home', ['$scope', '$window', '$http', '$location', Site.controller]);
