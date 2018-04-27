@@ -15,6 +15,7 @@ Site = {
   	$scope.items = [];
     $scope.onStageId = null;
     $scope.dataVersion = '0.0';
+    $scope.appVersion = '1.91';
     let player;
 
     function initPlayer() {
@@ -36,6 +37,10 @@ Site = {
     }
 
     function init () {
+			mixpanel.register({
+				"AppVersion": $scope.appVersion
+			});
+
 			mixpanel.track("App Loaded");
       Loader.showLoadingBox();
 
@@ -47,6 +52,9 @@ Site = {
       	items = response.data.items;
         $scope.items = Site.shuffleArray(items);
         $scope.dataVersion = response.data.version;
+				mixpanel.register_once({
+					"DataVersion": $scope.dataVersion
+				});
 				mixpanel.track('Received Video List', {Count: $scope.items.length});
         Loader.hideLoadingBox();
         $scope.onStageId = $scope.items[0].videoId;
