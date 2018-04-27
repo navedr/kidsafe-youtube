@@ -14,14 +14,14 @@ Site = {
     let items = [];
     let player;
     let query = $location.search();
-    let appInfo = $location.search();
 
     if (query.DeviceID && query.Device) {
       mixpanel.identify(`${query.Device}-${query.DeviceID}`);
     }
 
-    appInfo['App Version'] = $scope.appVersion;
-    mixpanel.register(appInfo);
+    mixpanel.register({
+      'App Version': $scope.appVersion
+    });
 
   	$scope.items = [];
     $scope.onStageId = null;
