@@ -18,6 +18,10 @@ Site = {
     $scope.appVersion = '1.91';
     let player;
 
+    mixpanel.register({
+			"AppVersion": $scope.appVersion
+		});
+
     function initPlayer() {
       player = new YT.Player('player', {
         playerVars: {
@@ -34,13 +38,10 @@ Site = {
           'onReady': (event) => event.target.playVideo()
         }
       });
+			mixpanel.track("YouTube player initialized", {VideoId: $scope.onStageId});
     }
 
     function init () {
-			mixpanel.register({
-				"AppVersion": $scope.appVersion
-			});
-
 			mixpanel.track("App Loaded");
       Loader.showLoadingBox();
 
