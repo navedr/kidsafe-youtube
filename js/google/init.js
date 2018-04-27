@@ -15,6 +15,11 @@ Site = {
     let player;
     let query = $location.search();
 
+    $scope.items = [];
+    $scope.onStageId = null;
+    $scope.dataVersion = '0.0';
+    $scope.appVersion = '1.0b11';
+
     if (query.DeviceID && query.Device) {
       mixpanel.identify(`${query.Device}-${query.DeviceID}`);
     }
@@ -22,11 +27,6 @@ Site = {
     mixpanel.register({
       'App Version': $scope.appVersion
     });
-
-  	$scope.items = [];
-    $scope.onStageId = null;
-    $scope.dataVersion = '0.0';
-    $scope.appVersion = '1.0b10';
 
     function initPlayer() {
       player = new YT.Player('player', {
