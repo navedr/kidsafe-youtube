@@ -1,4 +1,9 @@
 const startSeconds = 10;
+
+Array.prototype.move = function(from, to) {
+  this.splice(to, 0, this.splice(from, 1)[0]);
+};
+
 Site = {
   shuffleArray: function (array) {
     array.forEach(function (element, i) {
@@ -16,9 +21,9 @@ Site = {
     let query = $location.search();
 
     $scope.items = [];
-    $scope.onStageId = null;
+    $scope.onStageItem = null;
     $scope.dataVersion = '0.0';
-    $scope.appVersion = '1.0b12';
+    $scope.appVersion = '1.0b13';
 
     if (query.DeviceID && query.Device) {
       mixpanel.identify(`${query.Device}-${query.DeviceID}`);
@@ -36,15 +41,16 @@ Site = {
           disablekb: 1,
           modestbranding: 1,
           rel: 0,
+          showinfo: 0,
           origin: 'https://navedr.github.io',
         },
-        videoId: $scope.onStageId,
+        videoId: $scope.onStageItem.videoId,
         startSeconds: startSeconds,
         events: {
           'onReady': (event) => event.target.playVideo()
         }
       });
-			mixpanel.track("YouTube player initialized", {VideoId: $scope.onStageId});
+			mixpanel.track("YouTube player initialized", {VideoId: $scope.onStageItem.videoId});
     }
 
     function init () {
@@ -64,17 +70,19 @@ Site = {
 				});
 				mixpanel.track('Received Video List', {Count: $scope.items.length});
         Loader.hideLoadingBox();
-        $scope.onStageId = $scope.items[0].videoId;
+        $scope.onStageItem = $scope.items[0];
         initPlayer();
       });
     }
 
     $scope.loadVideo = function (item) {
-      if ($scope.onStageId !== item.videoId) {
+      if ($scope.onStageItem !== item) {
 				mixpanel.track("Video Selected", {Title: item.title, VideoId: item.videoId});
-				$scope.onStageId = item.videoId;
+				$scope.onStageItem = item;
 				player.loadVideoById({videoId: item.videoId, startSeconds: startSeconds});
+				let oldIndex = $scope.items.indexOf(item);
 				Site.shuffleArray($scope.items);
+				$scope.items.move($scope.items.indexOf(item), oldIndex);
       }
       return false;
     };
