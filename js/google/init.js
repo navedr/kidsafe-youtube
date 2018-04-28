@@ -18,7 +18,7 @@ Site = {
     $scope.items = [];
     $scope.onStageId = null;
     $scope.dataVersion = '0.0';
-    $scope.appVersion = '1.0b11';
+    $scope.appVersion = '1.0b12';
 
     if (query.DeviceID && query.Device) {
       mixpanel.identify(`${query.Device}-${query.DeviceID}`);
