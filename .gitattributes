@@ -8,3 +8,4 @@
 *.less text eol=lf
 *.jade text eol=lf
 *.sh text eol=lf
+*.MD text eol=lf
