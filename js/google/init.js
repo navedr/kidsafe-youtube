@@ -1,3 +1,4 @@
+Raven.config('https://fc5a3a7b6a014b69bb3cffe058846fb0@sentry.io/1200044').install();
 const startSeconds = 10;
 
 Array.prototype.move = function(from, to) {
@@ -95,5 +96,5 @@ Site = {
   }
 };
 
-let app = angular.module('main', [])
+let app = angular.module('main', ['ngRaven'])
   .controller('Home', ['$scope', '$window', '$http', '$location', Site.controller]);
